@@ -7,7 +7,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'https://mern-signup-login-flow-1.onrender.com',
-        secure: true,
+        secure: false,
       },
     },
   },
