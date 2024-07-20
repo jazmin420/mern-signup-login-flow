@@ -47,7 +47,7 @@ exports.signin = async (req, res, next) => {
 
     if (user) {
       if (!user.qrCodeGenerated) {
-        const profileUrl = `https://signup-login-flow-mern.vercel.app/profile/${user._Id}`;
+        const profileUrl = `https://signup-login-flow-mern-atm05jlra-jazmins-projects-85efcd46.vercel.app/profile/${user._Id}`;
         user.profileUrl = profileUrl;
         user.qrCodeGenerated = true;
         await user.save();
