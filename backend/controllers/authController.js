@@ -1,13 +1,21 @@
-const User = require('../model/userModel')
-const bcryptjs = require('bcryptjs');
+const bcryptjs = require("bcryptjs");
+const User = require("../model/userModel");
 
-exports.test = (req,res) => {
-  res.json('API is working!!!')
-}
+exports.test = (req, res) => {
+  res.json("API is working!!!");
+};
 
-
-exports.signup = async(req,res, next) => {
-  const { username, email, password, coverPhoto, profilePicture, gender, educationLevel,phoneNumber } = req.body;
+exports.signup = async (req, res, next) => {
+  const {
+    username,
+    email,
+    password,
+    coverPhoto,
+    profilePicture,
+    gender,
+    educationLevel,
+    phoneNumber,
+  } = req.body;
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
@@ -15,53 +23,49 @@ exports.signup = async(req,res, next) => {
     const newUser = new User({
       username,
       email,
-      password : hashedPassword,
+      password: hashedPassword,
       phoneNumber,
       educationLevel,
       gender,
       profilePicture,
-      coverPhoto
+      coverPhoto,
     });
 
     const savedUser = await newUser.save();
-    
+
     res.status(201).json({ user: savedUser });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 
-exports.signin = async(req, res, next) => {
-  
+exports.signin = async (req, res, next) => {
   try {
-
     const { email } = req.user;
 
-  const user =  await User.findOne({email});
+    const user = await User.findOne({ email });
 
-  if (user) {
-    if (!user.qrCodeGenerated) {
-      const profileUrl = `http://localhost:5173/profile/${user._Id}`;
-      user.profileUrl = profileUrl;
-      user.qrCodeGenerated = true;
-      await user.save();
+    if (user) {
+      if (!user.qrCodeGenerated) {
+        const profileUrl = `http://localhost:5173/profile/${user._Id}`;
+        user.profileUrl = profileUrl;
+        user.qrCodeGenerated = true;
+        await user.save();
+      }
+      res.status(200).json({
+        success: true,
+        user,
+      });
+    } else {
+      res.status(404).send("User not found");
     }
-    res.status(200).json({
-      success: true,
-      user
-    })
-  } else {
-    res.status(404).send('User not found');
-  }
   } catch (error) {
-    console.error('Error handling signin:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error handling signin:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
-exports.googleAuth = async(req, res, next) => {
-
-  //console.log(req.user)
+exports.googleAuth = async (req, res, next) => {
   const { email, name, googlePhotoUrl } = req.user;
 
   try {
@@ -70,42 +74,27 @@ exports.googleAuth = async(req, res, next) => {
     if (user) {
       const { password, ...rest } = user._doc;
       res.status(200).json(rest);
-    } 
-    else {
+    } else {
       const generatedPassword =
-      Math.random().toString(36).slice(-8) +
-      Math.random().toString(36).slice(-8);
-    const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
 
       const newUser = new User({
-        username : name,
+        username: name,
         email,
         password: hashedPassword,
-        profilePicture : googlePhotoUrl
+        profilePicture: googlePhotoUrl,
       });
       await newUser.save();
 
       const { password, ...rest } = newUser._doc;
 
-      res
-        .status(200)
-        .json(rest);
+      res.status(200).json(rest);
     }
   } catch (error) {
     next(error);
   }
-}
+};
 
-exports.getUserData = async(req, res, next) => {
-  try {
-    const _id = req.params._id;
-    //console.log(_id) 
-    const user = await User.findById(_id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ message: 'Server error' });
-  }
-}
+

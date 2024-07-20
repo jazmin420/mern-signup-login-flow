@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useUserData = (userId) => {
   const [user, setUser] = useState(null);
@@ -10,7 +10,7 @@ const useUserData = (userId) => {
       try {
         const response = await fetch(`/api/user/${userId}`);
         if (!response.ok) {
-          throw new Error('User not found');
+          throw new Error("User not found");
         }
         const data = await response.json();
         setUser(data);
