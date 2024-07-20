@@ -6,8 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
-        secure: false,
+        target: 'https://mern-signup-login-flow-1.onrender.com',
+        secure: true,
       },
     },
   },
