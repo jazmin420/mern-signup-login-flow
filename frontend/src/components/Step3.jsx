@@ -25,7 +25,7 @@ function Step3({ formData, handleChange, handleSubmit, prevStep }) {
         >
           <option value="">Select Education Level</option>
           <option value="High School">High School</option>
-          <option value="Associate Degree">Associate Degree</option>
+          <option value="Associate's Degree">Associate's Degree</option>
           <option value="Bachelor's Degree">Bachelor's Degree</option>
           <option value="Master's Degree">Master's Degree</option>
           <option value="Doctorate">Doctorate</option>
