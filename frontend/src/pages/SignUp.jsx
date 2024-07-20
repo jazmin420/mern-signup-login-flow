@@ -9,8 +9,9 @@ import Step1 from '../components/Step1';
 import Step2 from '../components/Step2';
 import Step3 from '../components/Step3';
 
-const Signup = () => {
+function Signup (){
 
+  const apiUrl = import.meta.env.VITE_API_URL
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
@@ -75,7 +76,7 @@ const Signup = () => {
 
      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
 
-      const response = await fetch('/api/signup', {
+      const response = await fetch(`${apiUrl}/api/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

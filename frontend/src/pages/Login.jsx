@@ -4,10 +4,12 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+function Login() {
   const navigate = useNavigate();
 
   const [userId, setUserId] = useState(null);
+
+  const apiUrl = import.meta.env.VITE_API_URL
 
   const [token, setToken] = useState("");
   const [formData, setFormData] = useState({
@@ -42,7 +44,7 @@ const Login = () => {
       const idToken = await userCredential.user.getIdToken();
       setToken(idToken);
 
-      const res = await fetch("/api/signin", {
+      const res = await fetch(`${apiUrl}/api/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
