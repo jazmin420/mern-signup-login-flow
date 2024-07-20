@@ -36,7 +36,7 @@ const userSchema = new Schema(
         "Master's Degree",
         "Doctorate",
       ],
-      default: "",
+      required: true,
     },
     profileUrl: String,
     qrCodeGenerated: { type: Boolean, default: false },
