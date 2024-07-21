@@ -37,7 +37,7 @@ function Step3({ formData, handleChange, handleSubmit, prevStep }) {
           <input
             type="radio"
             name="gender"
-            value="male"
+            value={formData.gender}
             onChange={handleChange}
             className="mr-2"
           />
@@ -45,7 +45,7 @@ function Step3({ formData, handleChange, handleSubmit, prevStep }) {
           <input
             type="radio"
             name="gender"
-            value="female"
+            value={formData.gender}
             onChange={handleChange}
             className="mr-2"
           />
@@ -62,7 +62,7 @@ function Step3({ formData, handleChange, handleSubmit, prevStep }) {
         </button>
         <button
           type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-400 transition duration-200"
           onClick={handleSubmit}
         >
           Submit

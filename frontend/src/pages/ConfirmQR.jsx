@@ -14,7 +14,7 @@ function ConfirmQR() {
     <div className="flex items-center justify-center flex-col min-h-screen bg-gray-100">
       <div className="rounded border-2 p-6 w-full max-w-md bg-white flex flex-col justify-center items-center">
         <h2 className="text-xl mb-5 text-center font-semibold">
-          Hi {user.username} , You can Scan this QR code to view your profile
+          Hi {user.username} , Anyone can Scan this QR code to view your profile
           page
         </h2>
         {user?.profileUrl ? (

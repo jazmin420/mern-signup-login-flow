@@ -47,8 +47,7 @@ exports.signin = async (req, res, next) => {
 
     if (user) {
       if (!user.qrCodeGenerated) {
-        const profileUrl = `https://signup-login-flow-mern.vercel.app/profile/${user._Id}`;
-        // const profileUrl = `http://localhost:5173/profile/${user._Id}`;
+         const profileUrl = `http://localhost:5173/profile/${user._id}`;
         user.profileUrl = profileUrl;
         user.qrCodeGenerated = true;
         await user.save();
@@ -73,6 +72,12 @@ exports.googleAuth = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (user) {
+      if (!user.qrCodeGenerated) {
+        const profileUrl = `http://localhost:5173/profile/${user._id}`;
+       user.profileUrl = profileUrl;
+       user.qrCodeGenerated = true;
+       await user.save();
+     }
       const { password, ...rest } = user._doc;
       res.status(200).json(rest);
     } else {

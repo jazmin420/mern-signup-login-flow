@@ -30,6 +30,9 @@ const userSchema = new Schema(
     educationLevel: {
       type: String,
     },
+    gender : {
+      type: String,
+    },
     profileUrl: String,
     qrCodeGenerated: { type: Boolean, default: false },
   },
