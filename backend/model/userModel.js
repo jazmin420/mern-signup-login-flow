@@ -29,14 +29,6 @@ const userSchema = new Schema(
     },
     educationLevel: {
       type: String,
-      enum: [
-        "High School",
-        "Associate's Degree",
-        "Bachelor's Degree",
-        "Master's Degree",
-        "Doctorate",
-      ],
-      required: true,
     },
     profileUrl: String,
     qrCodeGenerated: { type: Boolean, default: false },
